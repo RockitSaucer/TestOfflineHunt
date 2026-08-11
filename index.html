@@ -15990,7 +15990,7 @@
     }
 
     function applyAllSectionMinStates() {
-      ['step1', 'step2', 'step3', 'tracts', 'solunar', 'hourly'].forEach(applyOneSectionMin);
+      ['step1', 'step2', 'step3', 'tracts', 'solunar', 'hourly', 'events'].forEach(applyOneSectionMin);
       updatePlannerHalfMinClasses();
       // Re-apply dock class without re-expanding panels (preserves individual − while docked)
       try { applyPlannerDockLeft({ expandPanels: false }); } catch (eDock) {}
