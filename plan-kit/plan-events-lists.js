@@ -741,13 +741,12 @@
                 '<div class="ps-tminus-block">' +
                   (cd || '<span class="cd muted">No start time</span>') +
                 '</div>' +
+                (ev.lat != null
+                  ? '<div class="ps-loc-hint">📍 Location set — opens on map when you select this event</div>'
+                  : '<div class="ps-loc-hint muted">No pin yet — Edit event → Add location</div>') +
                 '<button type="button" class="ps-list-btn" data-ps-open-list="' + esc(id) +
                   '">List</button>' +
                 '<div class="ps-action-row">' +
-                  (ev.lat != null
-                    ? ('<button type="button" data-ps-map="' + esc(id) + '">Map</button>')
-                    : '') +
-                  '<button type="button" class="ps-ql" data-ps-ql="' + esc(id) + '">Quick Load</button>' +
                   '<button type="button" data-ps-hide="' + esc(id) + '">Hide</button>' +
                   (isCreator
                     ? ('<button type="button" class="ps-danger" data-ps-del="' + esc(id) + '">Delete</button>')
@@ -760,19 +759,10 @@
       }).join('');
     }
     if (hiddenDay && hiddenDay.length) {
-      htmlOut += '<div class="ps-hidden-label">Hidden on your calendar (not deleted)</div>';
+      htmlOut += '<div class="ps-hidden-label">Hidden</div>';
       htmlOut += hiddenDay.map(function (ev) {
-        var range = ev.startDate === ev.endDate ? ev.startDate : (ev.startDate + ' → ' + ev.endDate);
-        return '<div class="ps-event-card-wrap">' +
-          '<div class="ps-event-card" style="opacity:0.92;border-style:dashed">' +
-            '<div class="ec-top"><strong class="ec-name" style="color:var(--muted)">' +
-              esc(huntEventName(ev)) + '</strong></div>' +
-            '<div class="ec-meta">' + esc(range) + ' · hidden for you only</div>' +
-            '<div class="ps-event-detail" style="display:block">' +
-              '<button type="button" class="ps-list-btn" style="background:#2f5a20" data-ps-unhide="' +
-                esc(ev.id) + '">Unhide</button>' +
-            '</div>' +
-          '</div></div>';
+        return '<button type="button" class="ps-hidden-chip" data-ps-unhide="' +
+          esc(ev.id) + '" title="Tap to unhide">' + esc(huntEventName(ev)) + '</button>';
       }).join('');
     }
     return htmlOut;
@@ -800,24 +790,6 @@
         var idL = openList.getAttribute('data-ps-open-list');
         var evL = global.RegSlayerCalendarEvents && global.RegSlayerCalendarEvents.getById(idL);
         openListFloat({ event: evL || { id: idL, text: 'Event' } });
-        return;
-      }
-      var mapB = t.closest('[data-ps-map]');
-      if (mapB) {
-        e.preventDefault();
-        e.stopPropagation();
-        if (typeof global.goToEventLocation === 'function') {
-          global.goToEventLocation(mapB.getAttribute('data-ps-map'));
-        }
-        return;
-      }
-      var ql = t.closest('[data-ps-ql]');
-      if (ql) {
-        e.preventDefault();
-        e.stopPropagation();
-        if (typeof global.openQuickLoadMenu === 'function') {
-          global.openQuickLoadMenu(ql.getAttribute('data-ps-ql'));
-        }
         return;
       }
       var hide = t.closest('[data-ps-hide]');
@@ -850,12 +822,21 @@
       var card = t.closest('[data-ps-open-event]');
       if (card) {
         var id = card.getAttribute('data-ps-open-event');
-        state.activeEventId = String(state.activeEventId) === String(id) ? null : id;
-        // Re-render via host if available
+        var wasActive = String(state.activeEventId) === String(id);
+        state.activeEventId = wasActive ? null : id;
+        // Selecting an event with a focus pin → jump map there (no Quick Load menu)
+        if (!wasActive && global.RegSlayerCalendarEvents) {
+          try {
+            var evOpen = global.RegSlayerCalendarEvents.getById(id);
+            if (evOpen && evOpen.lat != null && evOpen.lng != null &&
+                typeof global.goToEventLocation === 'function') {
+              global.goToEventLocation(id);
+            }
+          } catch (eGo) {}
+        }
         if (typeof global.updateEventsList === 'function') {
           try { global.updateEventsList(); return; } catch (eU) {}
         }
-        // Fallback: toggle class
         root.querySelectorAll('.ps-event-card').forEach(function (el) {
           el.classList.toggle('is-active', el.getAttribute('data-ps-open-event') === state.activeEventId);
         });

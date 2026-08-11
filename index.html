@@ -1427,6 +1427,10 @@
     .step-section.is-minimized { margin-bottom: 0; }
     .step-section.is-minimized > :not(.step-header) { display: none !important; }
     .step-section.is-minimized .step-header { margin-bottom: 0; }
+    /* Trips and Events section — same min/max as other planner sections */
+    #calendar-events-section.is-minimized .events-section-body { display: none !important; }
+    #calendar-events-section.is-minimized .events-section-header { margin-bottom: 0; }
+    #calendar-events-section .events-section-header .sec-minmax-btn { flex: 0 0 auto; }
     /* Phone: force-collapse step bodies (some child displays override desktop rules) */
     html.layout-phone .step-section.is-minimized > :not(.step-header) {
       display: none !important;
@@ -10926,10 +10930,7 @@
               <div class="calendar-grid" id="calendar-grid"></div>
             </div>
             <div class="events-box" id="calendar-events-section">
-              <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;">
-                <span id="events-title-date" style="font-size:11px;font-weight:bold;color:var(--accent);text-transform:uppercase;">Trips and Events</span>
-                <button id="add-event-tab-btn" onclick="setEventFormVisibility(true)" style="background:var(--panel);border:1px solid var(--border);color:var(--accent);padding:3px 8px;border-radius:4px;font-weight:bold;cursor:pointer;font-size:11px;">+ Add Event</button>
-              </div>
+              <div class="events-section-header" style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;gap:6px;"><span id="events-title-date" style="font-size:11px;font-weight:bold;color:var(--accent);text-transform:uppercase;flex:1;min-width:0;">Trips and Events</span><button id="add-event-tab-btn" onclick="setEventFormVisibility(true)" style="background:var(--panel);border:1px solid var(--border);color:var(--accent);padding:3px 8px;border-radius:4px;font-weight:bold;cursor:pointer;font-size:11px;">+ Add Event</button><button type="button" class="sec-minmax-btn" id="sec-min-events" onclick="toggleSectionMin('events')" title="Minimize Trips and Events" aria-label="Minimize Trips and Events" aria-expanded="true">−</button></div><div class="events-section-body" id="calendar-events-body">
               <div class="event-form-row" id="event-form-container" style="display:none;">
                 <input type="text" id="event-title-input" placeholder="Trip Detail..." style="padding:6px 10px;font-size:12px;">
                 <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-top:6px;">
@@ -10946,7 +10947,7 @@
                     <option value="all">All my maps (no auto-switch)</option>
                   </select>
                 </label>
-                <p style="font-size:10px;color:var(--muted);margin:4px 0 0;line-height:1.35;">Pick a Hunt/Reg map you’re on. Opening this event (Quick Load) switches to that map and its pins.</p>
+                <p style="font-size:10px;color:var(--muted);margin:4px 0 0;line-height:1.35;">Pick a Hunt/Reg map you’re on. Selecting the event focuses its location pin on the map (use Add location to set one).</p>
                 <div style="display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin-top:6px;">
                   <button type="button" id="event-add-people-btn" onclick="openEventAddPeople()" style="width:100%;margin-top:6px;background:var(--panel);border:1px solid var(--accent);color:var(--accent);padding:6px 10px;border-radius:6px;font-weight:800;cursor:pointer;font-size:11px;">Add people</button>
                 <button type="button" id="event-add-location-btn" onclick="startEventLocationPick()" style="background:var(--panel);border:1px solid var(--border);color:var(--accent);padding:5px 8px;border-radius:6px;font-weight:bold;cursor:pointer;font-size:11px;">Add location</button>
@@ -10970,10 +10971,11 @@
                 </div>
                 <div style="display:flex;gap:6px;margin-top:6px;">
                   <button type="button" id="save-event-btn" onclick="saveEvent()" style="flex:1;background:var(--accent);border:none;color:#000;font-weight:bold;padding:6px 12px;border-radius:6px;font-size:12px;cursor:pointer;">Add Event</button>
-                  <button type="button" id="cancel-edit-btn" onclick="clearEventForm()" style="background:var(--panel);border:1px solid var(--border);color:var(--muted);padding:6px 12px;border-radius:6px;font-size:12px;cursor:pointer;display:none;">Cancel</button>
+                  <button type="button" id="cancel-edit-btn" onclick="clearEventForm()" style="background:var(--panel);border:1px solid var(--border);color:var(--muted);padding:6px 12px;border-radius:6px;font-size:12px;cursor:pointer;">Cancel</button>
                 </div>
               </div>
               <div id="calendar-events-list" style="font-size:12px;"></div>
+              </div>
             </div>
           </div>
         </div>
@@ -12325,7 +12327,7 @@
 
   <script>
     // ========== STATE ==========
-    const APP_VERSION = '7.0.61-testoffline';
+    const APP_VERSION = '7.0.62-testoffline';
     /** Site brand: 'hunt' (huntslayer.com) or 'reg' (regslayer.com) — drives first-launch defaults only. */
     const SITE_ID = 'hunt';
     const APP_SETTINGS_KEY = 'reg_slayer_app_settings_v1';
@@ -12490,7 +12492,7 @@
      */
     var sectionMinState = {
       step1: false, step2: false, step3: false,
-      tracts: false, solunar: false, hourly: false
+      tracts: false, solunar: false, hourly: false, events: false
     };
     try {
       var _secRaw = localStorage.getItem('reg_slayer_section_min_v2');
@@ -15783,6 +15785,7 @@
       if (id === 'tracts') return document.getElementById('locations-under-steps');
       if (id === 'solunar') return document.getElementById('wx-solunar-section');
       if (id === 'hourly') return document.getElementById('wx-hourly-section');
+      if (id === 'events') return document.getElementById('calendar-events-section');
       return null;
     }
     function sectionMinButton(id) {
@@ -32486,6 +32489,8 @@ function togglePinIconPicker() {
     function setEventFormVisibility(v) {
       document.getElementById('event-form-container').style.display = v ? 'flex' : 'none';
       document.getElementById('add-event-tab-btn').style.display = v ? 'none' : 'inline-block';
+      var cancelBtn = document.getElementById('cancel-edit-btn');
+      if (cancelBtn) cancelBtn.style.display = v ? 'inline-block' : 'none';
       if (v) {
         var base = selectedDate ? calYmd(selectedDate) : calYmd(new Date());
         var sd = document.getElementById('event-start-date');
@@ -32552,7 +32557,6 @@ function togglePinIconPicker() {
       clearEventLocationDraft();
       document.getElementById('event-title-input').value = '';
       document.getElementById('save-event-btn').innerText = 'Add Event';
-      document.getElementById('cancel-edit-btn').style.display = 'none';
       renderCalendar(); updateEventsList(); setEventFormVisibility(false);
     }
     function startEditEventById(id) {
@@ -32605,7 +32609,6 @@ function togglePinIconPicker() {
       if (document.getElementById('event-end-date')) document.getElementById('event-end-date').value = '';
       clearEventLocationDraft();
       document.getElementById('save-event-btn').innerText = 'Add Event';
-      document.getElementById('cancel-edit-btn').style.display = 'none';
       if (window.RegSlayerCalendarEvents) window.RegSlayerCalendarEvents.cancelLocationPick();
       setEventFormVisibility(false);
     }

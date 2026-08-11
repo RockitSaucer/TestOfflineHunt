@@ -1,0 +1,10 @@
+﻿TestOfflineHunt 7.0.62-testoffline
+==================================
+- Events section: minimize (−) like other planner sections
+- No Quick Load on event cards — select event focuses map if location pin set
+- Hidden events: thin name-only chip (tap to unhide)
+- Map name chips: no invite code next to name (Share still has code)
+- Add Event form: Cancel always available with Save/Add Event
+- Shared storage still plan_slayer_* / slayer_event_lists / reg_slayer_cal for cross-app checks
+
+Shell: test-offline-hunt-shell-v2

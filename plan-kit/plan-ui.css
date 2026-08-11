@@ -134,19 +134,45 @@
 #calendar-events-list .ps-event-detail .ps-action-row button.ps-danger {
   color: #fca5a5;
 }
-#calendar-events-list .ps-event-detail .ps-action-row button.ps-ql {
-  background: var(--green, #2f5a20);
-  border-color: #2f5a20;
-  color: #fff;
-  font-weight: 800;
+#calendar-events-list .ps-loc-hint {
+  font-size: 10px;
+  font-weight: 600;
+  color: var(--muted, #8a9488);
+  margin: 0 0 8px;
+  line-height: 1.3;
 }
 #calendar-events-list .ps-hidden-label {
-  margin: 12px 0 6px;
-  font-size: 11px;
+  margin: 8px 0 4px;
+  font-size: 10px;
   font-weight: 800;
   color: var(--muted, #8a9488);
   text-transform: uppercase;
   letter-spacing: 0.04em;
+}
+/* Hidden events: thin name-only chip (not a full card) */
+#calendar-events-list .ps-hidden-chip {
+  display: block;
+  width: 100%;
+  text-align: left;
+  margin: 0 0 3px;
+  padding: 3px 8px;
+  min-height: 0;
+  line-height: 1.25;
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--muted, #8a9488);
+  background: rgba(0,0,0,0.2);
+  border: 1px dashed var(--border, #2a3224);
+  border-radius: 4px;
+  cursor: pointer;
+  font-family: inherit;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+#calendar-events-list .ps-hidden-chip:hover {
+  color: var(--accent, #e59a18);
+  border-color: rgba(229,154,24,0.45);
 }
 
 /* —— Floating Plan lists window (does not cover whole map) —— */

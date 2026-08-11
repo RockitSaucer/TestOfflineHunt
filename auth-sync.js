@@ -1731,7 +1731,7 @@
   function updateAuthChrome() {
     var mapLabel = resolveActiveMapLabel();
     var mapTitle = viewState.mode === 'shared'
-      ? ('Shared map · code ' + (viewState.sharedMapCode || ''))
+      ? 'Shared map'
       : 'Private map';
     // Prefer unified party label writer (mobile title + max chip + brand)
     try {

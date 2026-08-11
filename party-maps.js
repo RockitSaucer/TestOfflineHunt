@@ -2479,7 +2479,7 @@
 
   async function openSharedMapActions(mapRow) {
     showSimpleModal(mapRow.name || 'Shared map',
-      '<p class="settings-hint">Code: <strong>' + esc(mapRow.code) + '</strong></p>',
+      '<p class="settings-hint">Use Share to copy the invite for partners.</p>',
       [
         {
           label: 'View this map',
@@ -2666,8 +2666,9 @@
     var vs = C.getViewState && C.getViewState();
     var label = currentMapDisplayName(vs);
     if (!label || !String(label).trim()) label = 'My Map';
+    // Name only in the chip — invite codes stay in Share, not next to the map name
     var title = (vs && vs.mode === 'shared')
-      ? ('Shared map · ' + ((vs && vs.sharedMapCode) || '') + ' — click to switch maps')
+      ? ('Shared map — click to switch maps')
       : 'Private map — click to switch maps';
     ['brand-map-name', 'map-title-mobile', 'map-fs-title', 'map-bottom-map-name'].forEach(function (id) {
       var el = $(id);
