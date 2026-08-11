@@ -1,0 +1,20 @@
+TestOfflineHunt 7.0.61-testoffline
+=================================
+Date: 2026-08-11
+
+Shell: test-offline-hunt-shell-v1
+
+First merge-lab cut from Hunt 7.0.60-beta.
+
+- plan-kit/plan-ui.css — PlanSlayer event cards + floating list window
+- plan-kit/plan-events-lists.js — PlanEventsListsKit
+  - Day event cards: name, T minus, Edit event
+  - Expand: T minus block + List button
+  - List: floating multi-list window (personal + event lists), triad,
+    Got it! / Drop, expand options, add items
+  - Close minimizes float (map not replaced)
+- updateEventsList hooks PlanEventsListsKit.paintDayEventsList
+- Report issue → RockitSaucer/TestOfflineHunt (from-testofflinehunt)
+- Shared storage: plan_slayer_free_lists_v1 + slayer_event_lists_v1
+
+Not promoted to production Hunt-Slayer.

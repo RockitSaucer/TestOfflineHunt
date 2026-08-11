@@ -1,0 +1,572 @@
+/* PlanSlayer event cards + floating lists — TestOfflineHunt merge kit
+   Source of truth: Desktop/PlanSlayer (pin APP_VERSION there). */
+
+/* —— Event cards (calendar day list) —— */
+#calendar-events-list .ps-event-card-wrap {
+  margin: 0 0 8px;
+}
+#calendar-events-list .ps-event-card {
+  position: relative;
+  width: 100%;
+  text-align: left;
+  cursor: pointer;
+  background: var(--panel, #161a12);
+  border: 1px solid var(--border, #2a3224);
+  border-radius: 10px;
+  padding: 10px 12px;
+  border-left: 4px solid var(--accent, #e59a18);
+  color: var(--ink, #f0f4ee);
+  font-family: inherit;
+  box-shadow: 0 2px 0 #0a0c09, 0 4px 10px rgba(0,0,0,0.3);
+}
+#calendar-events-list .ps-event-card.is-active {
+  outline: 1px solid rgba(229,154,24,0.55);
+  border-color: rgba(229,154,24,0.5);
+}
+#calendar-events-list .ps-event-card .ec-top {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+#calendar-events-list .ps-event-card .ec-name {
+  flex: 0 1 auto;
+  min-width: 0;
+  max-width: 55%;
+  font-size: 14px;
+  font-weight: 800;
+}
+#calendar-events-list .ps-event-card .ec-countdown {
+  flex: 0 0 auto;
+  white-space: nowrap;
+}
+#calendar-events-list .ps-event-card .ec-countdown .cd {
+  font-size: 12px;
+  font-weight: 800;
+  color: var(--accent, #e59a18);
+}
+#calendar-events-list .ps-event-card .cd-tminus {
+  font-weight: 700;
+  opacity: 0.9;
+  margin-right: 2px;
+}
+#calendar-events-list .ps-event-card .cd-now {
+  color: #86efac;
+}
+#calendar-events-list .ps-event-card .cd-live.is-urgent {
+  color: #fca5a5;
+}
+#calendar-events-list .ps-event-card .ec-meta {
+  font-size: 11px;
+  color: var(--muted, #8a9488);
+  margin-top: 4px;
+  font-weight: 600;
+}
+#calendar-events-list .ps-event-card .ec-edit-btn {
+  margin-left: auto;
+  font-size: 11px;
+  font-weight: 800;
+  padding: 5px 10px;
+  border-radius: 8px;
+  border: 1px solid var(--border, #2a3224);
+  background: linear-gradient(180deg, #2a3224 0%, #1a2018 100%);
+  color: var(--ink, #f0f4ee);
+  cursor: pointer;
+  font-family: inherit;
+}
+#calendar-events-list .ps-event-card .ec-edit-btn:hover {
+  border-color: var(--accent, #e59a18);
+  color: var(--accent, #e59a18);
+}
+#calendar-events-list .ps-event-detail {
+  display: none;
+  margin-top: 10px;
+  padding-top: 10px;
+  border-top: 1px solid var(--border, #2a3224);
+}
+#calendar-events-list .ps-event-card.is-active .ps-event-detail {
+  display: block;
+}
+#calendar-events-list .ps-event-detail .ps-tminus-block {
+  margin-bottom: 8px;
+}
+#calendar-events-list .ps-event-detail .ps-tminus-block .cd {
+  font-size: 14px;
+  font-weight: 800;
+  color: var(--accent, #e59a18);
+}
+#calendar-events-list .ps-event-detail .ps-list-btn {
+  display: block;
+  width: 100%;
+  margin: 0 0 8px;
+  padding: 10px 12px;
+  font-size: 13px;
+  font-weight: 900;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  border-radius: 10px;
+  border: 1px solid rgba(229,154,24,0.55);
+  background: linear-gradient(180deg, #3a3420 0%, #2a2418 50%, #1a1810 100%);
+  color: #fff;
+  cursor: pointer;
+  font-family: inherit;
+}
+#calendar-events-list .ps-event-detail .ps-list-btn:hover {
+  filter: brightness(1.08);
+}
+#calendar-events-list .ps-event-detail .ps-action-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  justify-content: flex-end;
+}
+#calendar-events-list .ps-event-detail .ps-action-row button {
+  background: none;
+  border: 1px solid var(--border, #2a3224);
+  border-radius: 6px;
+  color: var(--accent, #e59a18);
+  cursor: pointer;
+  font-size: 11px;
+  font-weight: 700;
+  padding: 5px 8px;
+  font-family: inherit;
+}
+#calendar-events-list .ps-event-detail .ps-action-row button.ps-danger {
+  color: #fca5a5;
+}
+#calendar-events-list .ps-event-detail .ps-action-row button.ps-ql {
+  background: var(--green, #2f5a20);
+  border-color: #2f5a20;
+  color: #fff;
+  font-weight: 800;
+}
+#calendar-events-list .ps-hidden-label {
+  margin: 12px 0 6px;
+  font-size: 11px;
+  font-weight: 800;
+  color: var(--muted, #8a9488);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+/* —— Floating Plan lists window (does not cover whole map) —— */
+#ps-list-float {
+  display: none;
+  position: fixed;
+  z-index: 28000;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: min(1100px, 94vw);
+  height: min(780px, 88vh);
+  background: #0e120c;
+  border: 1px solid var(--border, #2a3224);
+  border-radius: 14px;
+  box-shadow: 0 24px 60px rgba(0,0,0,0.65), 0 0 0 1px rgba(229,154,24,0.2);
+  flex-direction: column;
+  overflow: hidden;
+  font-family: "Segoe UI", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+  color: var(--ink, #f0f4ee);
+}
+#ps-list-float.is-open {
+  display: flex !important;
+}
+#ps-list-float-backdrop {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 27990;
+  background: rgba(0,0,0,0.35);
+}
+#ps-list-float-backdrop.is-open {
+  display: block !important;
+}
+#ps-list-float .ps-float-head {
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 12px;
+  background: linear-gradient(180deg, #1a2018 0%, #12160f 100%);
+  border-bottom: 1px solid var(--border, #2a3224);
+  cursor: grab;
+  user-select: none;
+}
+#ps-list-float .ps-float-head:active { cursor: grabbing; }
+#ps-list-float .ps-float-title {
+  flex: 1 1 auto;
+  min-width: 0;
+  font-size: 15px;
+  font-weight: 900;
+  color: var(--accent, #e59a18);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+#ps-list-float .ps-float-sub {
+  font-size: 11px;
+  color: var(--muted, #8a9488);
+  font-weight: 600;
+}
+#ps-list-float .ps-float-close {
+  flex: 0 0 auto;
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  border: 1px solid var(--border, #2a3224);
+  background: #1a2018;
+  color: #f0f4ee;
+  font-size: 18px;
+  font-weight: 800;
+  cursor: pointer;
+  line-height: 1;
+}
+#ps-list-float .ps-float-close:hover {
+  border-color: var(--accent, #e59a18);
+  color: var(--accent, #e59a18);
+}
+#ps-list-float .ps-float-body {
+  flex: 1 1 auto;
+  min-height: 0;
+  display: flex;
+  flex-direction: row;
+  overflow: hidden;
+}
+#ps-list-float .ps-float-nav {
+  flex: 0 0 220px;
+  width: 220px;
+  border-right: 1px solid var(--border, #2a3224);
+  overflow: auto;
+  padding: 10px 8px;
+  background: #0a0c09;
+  scrollbar-width: thin;
+  scrollbar-color: #2a3224 #0a0c09;
+}
+#ps-list-float .ps-float-nav::-webkit-scrollbar { width: 8px; }
+#ps-list-float .ps-float-nav::-webkit-scrollbar-thumb { background: #2a3224; border-radius: 4px; }
+#ps-list-float .ps-float-nav::-webkit-scrollbar-button { display: none; height: 0; }
+#ps-list-float .ps-nav-label {
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--muted, #8a9488);
+  margin: 10px 6px 6px;
+}
+#ps-list-float .ps-nav-item {
+  display: block;
+  width: 100%;
+  text-align: left;
+  border: 1px solid transparent;
+  background: transparent;
+  color: #f0f4ee;
+  padding: 8px 10px;
+  border-radius: 8px;
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+  font-family: inherit;
+  margin-bottom: 4px;
+}
+#ps-list-float .ps-nav-item:hover {
+  background: rgba(229,154,24,0.1);
+  border-color: rgba(229,154,24,0.25);
+}
+#ps-list-float .ps-nav-item.is-active {
+  background: linear-gradient(180deg, #3a3420 0%, #2a2418 100%);
+  border-color: rgba(229,154,24,0.5);
+  color: #fff;
+}
+#ps-list-float .ps-float-main {
+  flex: 1 1 auto;
+  min-width: 0;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  padding: 10px;
+}
+#ps-list-float .ps-float-main-title {
+  flex: 0 0 auto;
+  font-size: 14px;
+  font-weight: 800;
+  margin: 0 0 8px;
+}
+#ps-list-float .ps-float-main-cd {
+  flex: 0 0 auto;
+  margin: 0 0 8px;
+  font-size: 12px;
+  font-weight: 800;
+  color: var(--accent, #e59a18);
+}
+#ps-list-float .ps-float-triad-wrap {
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+/* List triad inside float */
+#ps-list-float .list-triad {
+  display: flex !important;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  gap: 10px;
+  align-items: stretch;
+  flex: 1 1 auto;
+  min-height: 0;
+  height: 100%;
+  width: 100%;
+  overflow-x: auto;
+  overflow-y: hidden;
+}
+@media (max-width: 900px) {
+  #ps-list-float {
+    width: 98vw;
+    height: 92vh;
+  }
+  #ps-list-float .ps-float-body {
+    flex-direction: column;
+  }
+  #ps-list-float .ps-float-nav {
+    flex: 0 0 auto;
+    width: 100%;
+    max-height: 120px;
+    border-right: 0;
+    border-bottom: 1px solid var(--border, #2a3224);
+  }
+  #ps-list-float .list-triad {
+    flex-direction: column;
+    overflow-y: auto;
+    overflow-x: hidden;
+  }
+}
+#ps-list-float .list-col {
+  background: var(--col-bg, #0a0c09);
+  border: 1px solid var(--border, #2a3224);
+  border-radius: 10px;
+  min-height: 0;
+  height: 100%;
+  flex: 1 1 0;
+  min-width: 180px;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+#ps-list-float .list-col-head {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 8px 8px;
+  background: linear-gradient(180deg, #3a3420 0%, #2a2418 100%);
+  border-bottom: 1px solid rgba(229,154,24,0.4);
+  flex: 0 0 auto;
+}
+#ps-list-float .list-col-title {
+  flex: 1;
+  border: 0;
+  background: transparent;
+  color: #e59a18;
+  font-weight: 900;
+  font-size: 15px;
+  text-align: left;
+  font-family: inherit;
+}
+#ps-list-float .list-col-body {
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow: auto;
+  padding: 8px;
+  scrollbar-width: thin;
+  scrollbar-color: #2a3224 #0a0c09;
+}
+#ps-list-float .list-col-body::-webkit-scrollbar { width: 8px; }
+#ps-list-float .list-col-body::-webkit-scrollbar-thumb { background: #2a3224; border-radius: 4px; }
+#ps-list-float .list-col-body::-webkit-scrollbar-button { display: none; height: 0; }
+#ps-list-float .list-col-add {
+  flex: 0 0 auto;
+  display: flex;
+  gap: 6px;
+  padding: 8px;
+  border-top: 1px solid var(--border, #2a3224);
+  background: rgba(0,0,0,0.25);
+}
+#ps-list-float .list-col-add-input {
+  flex: 1;
+  min-width: 0;
+  padding: 8px;
+  font-size: 12px;
+  border-radius: 8px;
+  border: 1px solid var(--border, #2a3224);
+  background: #0c0f0a;
+  color: #f0f4ee;
+  font-family: inherit;
+}
+#ps-list-float .list-col-add-btn {
+  flex: 0 0 auto;
+  padding: 8px 12px;
+  font-size: 12px;
+  font-weight: 800;
+  border-radius: 8px;
+  border: 1px solid rgba(229,154,24,0.5);
+  background: linear-gradient(180deg, #3a3420 0%, #2a2418 100%);
+  color: #fff;
+  cursor: pointer;
+  font-family: inherit;
+}
+#ps-list-float .list-item {
+  border: 1px solid #1a2014;
+  border-radius: 10px;
+  margin-bottom: 10px;
+  overflow: hidden;
+  position: relative;
+  box-shadow: 0 1px 0 rgba(255,255,255,0.05) inset, 0 2px 0 #0a0c09, 0 4px 10px rgba(0,0,0,0.35);
+  cursor: pointer;
+  color: #f0f4ee;
+  min-height: 52px;
+}
+#ps-list-float .list-item.is-claimed {
+  box-shadow: 0 0 14px rgba(255,210,100,0.28), 0 0 0 1px rgba(255,220,140,0.35);
+  border-color: rgba(255,214,120,0.5);
+  filter: brightness(1.1) saturate(1.12);
+}
+#ps-list-float .list-item.is-full {
+  box-shadow: 0 0 18px rgba(74,222,128,0.42), 0 0 0 1px rgba(110,231,150,0.55);
+  border-color: rgba(74,222,128,0.65);
+  filter: brightness(1.16) saturate(1.18);
+}
+#ps-list-float .list-item.is-expanded {
+  outline: 1px solid rgba(229,154,24,0.45);
+}
+#ps-list-float .li-row {
+  display: flex;
+  align-items: stretch;
+  min-height: 52px;
+}
+#ps-list-float .li-face {
+  flex: 1 1 auto;
+  min-width: 0;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  text-align: left;
+  padding: 10px 12px;
+  cursor: pointer;
+  font: inherit;
+}
+#ps-list-float .li-title {
+  font-size: 14px;
+  font-weight: 800;
+}
+#ps-list-float .li-actions {
+  flex: 0 0 auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 4px;
+  padding: 6px 8px;
+  border-left: 1px solid rgba(0,0,0,0.25);
+}
+#ps-list-float .btn-got {
+  border-radius: 8px;
+  padding: 6px 10px;
+  font-size: 11px;
+  font-weight: 800;
+  color: #bbf7d0;
+  background: linear-gradient(180deg, #2a4a1c 0%, #1a2a14 50%, #121c0e 100%);
+  border: 1px solid #1e3014;
+  cursor: pointer;
+  font-family: inherit;
+}
+#ps-list-float .btn-got.is-on {
+  color: #fff;
+  background: linear-gradient(180deg, #5a8a3a 0%, #3f6b2a 50%, #2f4a1c 100%);
+}
+#ps-list-float .btn-got.btn-drop {
+  color: #fecaca !important;
+  background: linear-gradient(180deg, #7a3030 0%, #5a2020 50%, #3a1414 100%) !important;
+  border-color: #6b2424 !important;
+}
+#ps-list-float .li-detail {
+  display: none;
+  padding: 10px 12px 12px;
+  border-top: 1px solid #1f2618;
+  background: #0e120c;
+}
+#ps-list-float .list-item.is-expanded .li-detail {
+  display: block !important;
+}
+#ps-list-float .li-detail .field-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 8px;
+}
+#ps-list-float .li-detail label {
+  display: block;
+  font-size: 10px;
+  font-weight: 700;
+  color: var(--muted, #8a9488);
+  margin-bottom: 3px;
+}
+#ps-list-float .li-detail input,
+#ps-list-float .li-detail select,
+#ps-list-float .li-detail textarea {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 6px 8px;
+  border-radius: 6px;
+  border: 1px solid var(--border, #2a3224);
+  background: #0c0f0a;
+  color: #f0f4ee;
+  font-family: inherit;
+  font-size: 12px;
+}
+#ps-list-float .li-detail textarea { min-height: 48px; resize: vertical; }
+#ps-list-float .li-detail-actions {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+  margin-top: 10px;
+  flex-wrap: wrap;
+}
+#ps-list-float .li-detail-actions button {
+  padding: 7px 10px;
+  font-size: 11px;
+  font-weight: 800;
+  border-radius: 8px;
+  border: 1px solid var(--border, #2a3224);
+  background: #1a2018;
+  color: #f0f4ee;
+  cursor: pointer;
+  font-family: inherit;
+}
+#ps-list-float .li-detail-actions .btn-primary {
+  background: linear-gradient(180deg, #3a3420 0%, #2a2418 100%);
+  border-color: rgba(229,154,24,0.5);
+  color: #fff;
+}
+#ps-list-float .li-detail-actions .btn-item-del {
+  color: #fca5a5;
+  border-color: #5a2020;
+}
+#ps-list-float .li-claimers {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 8px;
+  margin-top: 6px;
+  font-size: 10px;
+  font-weight: 700;
+}
+#ps-list-float .empty {
+  color: var(--muted, #8a9488);
+  font-size: 12px;
+  padding: 8px;
+}
+#ps-list-float .ps-float-empty {
+  padding: 24px;
+  text-align: center;
+  color: var(--muted, #8a9488);
+  font-size: 13px;
+}

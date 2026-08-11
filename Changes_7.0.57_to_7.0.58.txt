@@ -1,0 +1,7 @@
+Hunt Slayer V7.0.58 — View list + share events
+
+- Calendar event cards: **View list** when a PlanSlayer packing list exists (popup sheet, same style as Plan mobile list)
+- Event form: **Add people** → **Copy event** popup with **Copy** code or **Add members**
+- Add members = people from shared maps / past map partners (`slayer_map_partners_v1` + cloud refresh)
+- calendar-events.js: preserve planListId / listPack / members; mirror packs from cloud `hunt_link` into local View list bridge
+- Shell cache → reg-slayer-shell-v119

@@ -1,0 +1,100 @@
+[
+  {
+    "id": "arrow_head",
+    "name": "Arrow head",
+    "src": "icons/dir/arrow_head.png",
+    "defaultColor": "#1a1a1a",
+    "frontDeg": 0.0
+  },
+  {
+    "id": "boat",
+    "name": "boat",
+    "src": "icons/dir/boat.png",
+    "defaultColor": "#1a1a1a",
+    "frontDeg": 0.0
+  },
+  {
+    "id": "bomb",
+    "name": "bomb",
+    "src": "icons/dir/bomb.png",
+    "defaultColor": "#1a1a1a",
+    "frontDeg": 225.0
+  },
+  {
+    "id": "bullet",
+    "name": "Bullet",
+    "src": "icons/dir/bullet.png",
+    "defaultColor": "#1a1a1a",
+    "frontDeg": 0.0
+  },
+  {
+    "id": "capture",
+    "name": "Capture",
+    "src": "icons/dir/capture.png",
+    "defaultColor": "#1a1a1a",
+    "frontDeg": 0.0
+  },
+  {
+    "id": "car",
+    "name": "car",
+    "src": "icons/dir/car.png",
+    "defaultColor": "#1a1a1a",
+    "frontDeg": 0.0
+  },
+  {
+    "id": "dobbs",
+    "name": "Dobbs",
+    "src": "icons/dir/dobbs.png",
+    "defaultColor": "#1a1a1a",
+    "frontDeg": 0.0
+  },
+  {
+    "id": "helicopter",
+    "name": "helicopter",
+    "src": "icons/dir/helicopter.png",
+    "defaultColor": "#1a1a1a",
+    "frontDeg": 0.0
+  },
+  {
+    "id": "prop_plane",
+    "name": "prop plane",
+    "src": "icons/dir/prop_plane.png",
+    "defaultColor": "#1a1a1a",
+    "frontDeg": 180.0
+  },
+  {
+    "id": "rocket",
+    "name": "rocket",
+    "src": "icons/dir/rocket.png",
+    "defaultColor": "#1a1a1a",
+    "frontDeg": 0.0
+  },
+  {
+    "id": "shuttle",
+    "name": "shuttle",
+    "src": "icons/dir/shuttle.png",
+    "defaultColor": "#1a1a1a",
+    "frontDeg": 0.0
+  },
+  {
+    "id": "speed_boat",
+    "name": "Speed Boat",
+    "src": "icons/dir/speed_boat.png",
+    "defaultColor": "#1a1a1a",
+    "frontDeg": 0.0
+  },
+  {
+    "id": "truck",
+    "name": "truck",
+    "src": "icons/dir/truck.png",
+    "defaultColor": "#1a1a1a",
+    "frontDeg": 0.0
+  },
+  {
+    "id": "x_wing",
+    "name": "x wing",
+    "src": "icons/dir/x_wing.png",
+    "defaultColor": "#1a1a1a",
+    "frontDeg": 0.0
+  }
+]

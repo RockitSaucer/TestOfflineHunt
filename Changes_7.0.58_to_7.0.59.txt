@@ -1,0 +1,6 @@
+Hunt Slayer V7.0.59 — Share event polish
+
+- Share event title (not Copy event); taller buttons
+- Add members: multi-select lights up, then **Add**
+- Share modal high z-index so it isn’t hidden behind other UI
+- Shell cache v120

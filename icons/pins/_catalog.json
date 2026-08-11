@@ -1,0 +1,176 @@
+[
+  {
+    "id": "alligator",
+    "name": "Alligator",
+    "src": "icons/pins/alligator.png",
+    "defaultColor": "#1a1a1a"
+  },
+  {
+    "id": "arrow",
+    "name": "Arrow",
+    "src": "icons/pins/arrow.png",
+    "defaultColor": "#1a1a1a"
+  },
+  {
+    "id": "beaver_dam",
+    "name": "Beaver Dam",
+    "src": "icons/pins/beaver_dam.png",
+    "defaultColor": "#1a1a1a"
+  },
+  {
+    "id": "blood",
+    "name": "Blood",
+    "src": "icons/pins/blood.png",
+    "defaultColor": "#e43844"
+  },
+  {
+    "id": "boat",
+    "name": "Boat",
+    "src": "icons/pins/boat.png",
+    "defaultColor": "#1a1a1a"
+  },
+  {
+    "id": "boat_ramp",
+    "name": "Boat Ramp",
+    "src": "icons/pins/boat_ramp.png",
+    "defaultColor": "#1a1a1a"
+  },
+  {
+    "id": "bow",
+    "name": "Bow",
+    "src": "icons/pins/bow.png",
+    "defaultColor": "#1a1a1a"
+  },
+  {
+    "id": "bow_stand",
+    "name": "Bow Stand",
+    "src": "icons/pins/bow_stand.png",
+    "defaultColor": "#1a1a1a"
+  },
+  {
+    "id": "bridge",
+    "name": "Bridge",
+    "src": "icons/pins/bridge.png",
+    "defaultColor": "#1a1a1a"
+  },
+  {
+    "id": "buck",
+    "name": "Buck",
+    "src": "icons/pins/buck.png",
+    "defaultColor": "#1a1a1a"
+  },
+  {
+    "id": "camera",
+    "name": "Camera",
+    "src": "icons/pins/camera.png",
+    "defaultColor": "#1a1a1a"
+  },
+  {
+    "id": "crossing",
+    "name": "Crossing",
+    "src": "icons/pins/crossing.png",
+    "defaultColor": "#1a1a1a"
+  },
+  {
+    "id": "deadhead",
+    "name": "Dead Head",
+    "src": "icons/pins/deadhead.png",
+    "defaultColor": "#1a1a1a"
+  },
+  {
+    "id": "dobbs",
+    "name": "Dobbs",
+    "src": "icons/pins/dobbs.png",
+    "defaultColor": "#1a1a1a"
+  },
+  {
+    "id": "doe",
+    "name": "Doe",
+    "src": "icons/pins/doe.png",
+    "defaultColor": "#1a1a1a"
+  },
+  {
+    "id": "feeder",
+    "name": "Feeder",
+    "src": "icons/pins/feeder.png",
+    "defaultColor": "#1a1a1a"
+  },
+  {
+    "id": "food",
+    "name": "Food",
+    "src": "icons/pins/food.png",
+    "defaultColor": "#1a1a1a"
+  },
+  {
+    "id": "house",
+    "name": "House",
+    "src": "icons/pins/house.png",
+    "defaultColor": "#1a1a1a"
+  },
+  {
+    "id": "muzzleloader",
+    "name": "Muzzleloader",
+    "src": "icons/pins/muzzleloader.png",
+    "defaultColor": "#1a1a1a"
+  },
+  {
+    "id": "prints",
+    "name": "Prints",
+    "src": "icons/pins/prints.png",
+    "defaultColor": "#1a1a1a"
+  },
+  {
+    "id": "rifle",
+    "name": "Rifle",
+    "src": "icons/pins/rifle.png",
+    "defaultColor": "#1a1a1a"
+  },
+  {
+    "id": "rifle_stand",
+    "name": "Rifle Stand",
+    "src": "icons/pins/rifle_stand.png",
+    "defaultColor": "#1a1a1a"
+  },
+  {
+    "id": "rub",
+    "name": "Rub",
+    "src": "icons/pins/rub.png",
+    "defaultColor": "#1a1a1a"
+  },
+  {
+    "id": "salt",
+    "name": "Salt",
+    "src": "icons/pins/salt.png",
+    "defaultColor": "#1a1a1a"
+  },
+  {
+    "id": "scrape",
+    "name": "Scrape",
+    "src": "icons/pins/scrape.png",
+    "defaultColor": "#1a1a1a"
+  },
+  {
+    "id": "shed",
+    "name": "Shed",
+    "src": "icons/pins/shed.png",
+    "defaultColor": "#1a1a1a"
+  },
+  {
+    "id": "tent",
+    "name": "Tent",
+    "src": "icons/pins/tent.png",
+    "defaultColor": "#1a1a1a"
+  },
+  {
+    "id": "tree",
+    "name": "Tree",
+    "src": "icons/pins/tree.png",
+    "defaultColor": "#1a1a1a"
+  },
+  {
+    "id": "truck",
+    "name": "Truck",
+    "src": "icons/pins/truck.png",
+    "defaultColor": "#1a1a1a"
+  }
+]

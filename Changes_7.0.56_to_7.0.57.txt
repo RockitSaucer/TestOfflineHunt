@@ -1,0 +1,8 @@
+﻿Hunt/Reg V7.0.57 — Select map on event create
+- Event form: “Select map” lists personal, private, and shared maps you are on
+- Quick Load / open event switches to the linked map (pins + data)
+- calendar-events stores privateMapId + sharedMapId
+
+PlanSlayer V1.3.13 — same Select map on Create event
+- Loads maps via list_my_shared_maps / list_my_private_maps (HuntSlayer Supabase)
+- Opening event auto-opens map mini and overlays linked map pins
