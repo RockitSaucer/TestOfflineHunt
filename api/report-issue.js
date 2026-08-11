@@ -35,6 +35,7 @@ function allowRate(ip) {
 
 function cors(res, origin) {
   const allowed = [
+    'https://testofflinehunt.vercel.app',
     'https://huntslayer.com',
     'https://www.huntslayer.com',
     'https://regslayer.com',
